@@ -79,11 +79,27 @@ import UIKit
     @objc public var cardPadding: BulletinPadding = .regular
 
     /**
+     * The spacing applied to the content stack view prepared by the Bulletin Item.
+     *
+     * Set this value if you'd like custom spacing. Otherwise sensible defaults will be applied.
+     */
+    
+    @objc public var cardContentSpacing: NSNumber?
+    
+    /**
+     * The padding around the card content stackView to the edge of the card
+     *
+     * Set this value if you'd like custom padding (e.g. none. Otherwise sensible defaults will be applied.
+     */
+    
+    public var cardContentInsets: UIEdgeInsets?
+
+    /**
      * The rounded corner radius of the bulletin card. Defaults to 12, and 36 on iPhone X.
      *
      * Set this value before calling `prepare`. Changing it after will have no effect.
      */
-
+    
     @objc public var cardCornerRadius: NSNumber?
 
     /**

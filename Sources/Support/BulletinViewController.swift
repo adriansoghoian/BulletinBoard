@@ -280,18 +280,18 @@ extension BulletinViewController {
 
         switch (traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass) {
         case (.regular, .regular):
-            stackLeadingConstraint.constant = 32
-            stackTrailingConstraint.constant = -32
-            stackBottomConstraint.constant = -32
-            contentTopConstraint.constant = -32
-            contentStackView.spacing = 32
+            stackLeadingConstraint.constant = self.manager?.cardContentInsets?.left ?? 32
+            stackTrailingConstraint.constant = -1 * (self.manager?.cardContentInsets?.right ?? 32)
+            stackBottomConstraint.constant = -1 * (self.manager?.cardContentInsets?.bottom ?? 32)
+            contentTopConstraint.constant = -1 * (self.manager?.cardContentInsets?.top ?? 32)
+            contentStackView.spacing = CGFloat(self.manager?.cardContentSpacing ?? 32)
 
         default:
-            stackLeadingConstraint.constant = 24
-            stackTrailingConstraint.constant = -24
-            stackBottomConstraint.constant = -24
-            contentTopConstraint.constant = -24
-            contentStackView.spacing = 24
+            stackLeadingConstraint.constant = self.manager?.cardContentInsets?.left ?? 24
+            stackTrailingConstraint.constant = -1 * (self.manager?.cardContentInsets?.right ?? 24)
+            stackBottomConstraint.constant = -1 * (self.manager?.cardContentInsets?.bottom ?? 24)
+            contentTopConstraint.constant = -1 * (self.manager?.cardContentInsets?.top ?? 24)
+            contentStackView.spacing = CGFloat(self.manager?.cardContentSpacing ?? 24)
 
         }
 
@@ -408,9 +408,32 @@ extension BulletinViewController {
             defaultRadius = screenHasRoundedCorners ? 36 : 12
         }
 
+        let cornerRadius = CGFloat((manager?.cardCornerRadius ?? defaultRadius).doubleValue)
+        
+        if let customStackViewPadding = manager?.cardContentInsets {
+            let top = customStackViewPadding.top
+            let left = customStackViewPadding.left
+            let right = customStackViewPadding.right
+            let bottom = customStackViewPadding.bottom
+            
+            if top.isZero, left.isZero, right.isZero {
+                let topView = contentStackView.arrangedSubviews.first
+                if #available(iOS 11.0, *) {
+                    topView?.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMinYCorner]
+                    topView?.layer.cornerRadius = cornerRadius
+                }
+            }
+            
+            if bottom.isZero, left.isZero, right.isZero  {
+                let lastView = contentStackView.arrangedSubviews.last
+                if #available(iOS 11.0, *) {
+                    lastView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                    lastView?.layer.cornerRadius = cornerRadius
+                }
+            }
+        }
 
-
-        contentView.layer.cornerRadius = CGFloat((manager?.cardCornerRadius ?? defaultRadius).doubleValue)
+        contentView.layer.cornerRadius = cornerRadius
 
     }
 
