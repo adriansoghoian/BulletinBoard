@@ -400,6 +400,9 @@ extension BulletinManager {
 
     @objc(dismissBulletinAnimated:)
     public func dismissBulletin(animated: Bool = true) {
+        if !isPrepared {
+            return
+        }
 
         assertIsPrepared()
         assertIsMainThread()
