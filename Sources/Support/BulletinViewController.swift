@@ -229,6 +229,18 @@ extension BulletinViewController {
         contentBottomConstraint.constant = 1000
         contentBottomConstraint.isActive = true
 
+        // background image
+        if let backgroundView = manager.cardBackgroundView {
+            backgroundView.layer.cornerRadius = contentView.layer.cornerRadius
+            contentView.addSubview(backgroundView)
+            contentView.sendSubview(toBack: backgroundView)
+            NSLayoutConstraint.activate([
+                backgroundView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                backgroundView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                backgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                backgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            ])
+        }
     }
 
     // MARK: - Gesture Recognizer

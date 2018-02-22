@@ -71,6 +71,12 @@ import UIKit
     // MARK: - Card Presentation
 
     /**
+     * A background view applied to card itself.
+     */
+
+    @objc public var cardBackgroundView: UIView?
+
+    /**
      * The spacing between the edge of the screen and the edge of the card. Defaults to regular.
      *
      * Set this value before calling `prepare`. Changing it after will have no effect.
