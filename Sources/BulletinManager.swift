@@ -175,7 +175,6 @@ extension BulletinManager {
         viewController.modalPresentationStyle = .overFullScreen
         viewController.transitioningDelegate = viewController
         viewController.loadBackgroundView()
-
         viewController.setNeedsStatusBarAppearanceUpdate()
 
         if #available(iOS 11.0, *) {
