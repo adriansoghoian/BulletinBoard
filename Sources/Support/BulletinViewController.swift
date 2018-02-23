@@ -110,6 +110,7 @@ extension BulletinViewController {
 
         contentView.accessibilityViewIsModal = true
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.clipsToBounds = true
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(contentView)
@@ -231,7 +232,6 @@ extension BulletinViewController {
 
         // background image
         if let backgroundView = manager.cardBackgroundView {
-            backgroundView.layer.cornerRadius = contentView.layer.cornerRadius
             contentView.addSubview(backgroundView)
             contentView.sendSubview(toBack: backgroundView)
             NSLayoutConstraint.activate([
@@ -444,7 +444,6 @@ extension BulletinViewController {
                 }
             }
         }
-
         contentView.layer.cornerRadius = cornerRadius
 
     }
