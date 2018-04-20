@@ -404,8 +404,8 @@ extension BulletinManager {
      * - parameter animated: Whether to animate dismissal. Defaults to `true`.
      */
 
-    @objc(dismissBulletinAnimated:)
-    public func dismissBulletin(animated: Bool = true) {
+    @objc(dismissBulletinAnimated:completion:)
+    public func dismissBulletin(animated: Bool = true, completion: (() -> Void)? = nil) {
         if !isPrepared {
             return
         }
@@ -417,7 +417,7 @@ extension BulletinManager {
         currentItem.manager = nil
 
         viewController.dismiss(animated: animated) {
-            self.completeDismissal()
+            self.completeDismissal(completion: completion)
         }
 
         isPrepared = false
@@ -428,7 +428,7 @@ extension BulletinManager {
      * Tears down the view controller and item stack after dismissal is finished.
      */
 
-    @nonobjc func completeDismissal() {
+    @nonobjc func completeDismissal(completion: (() -> Void)? = nil) {
 
         currentItem.dismissalHandler?(currentItem)
 
@@ -451,6 +451,8 @@ extension BulletinManager {
         }
 
         itemsStack.removeAll()
+
+        completion?()
 
     }
 
