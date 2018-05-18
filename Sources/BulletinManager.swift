@@ -24,6 +24,14 @@ import UIKit
     /// Bulletin view controller.
     fileprivate var viewController: BulletinViewController!
 
+    // MARK: - Content View
+
+    /**
+     * The content view of the bulletin view controller
+     */
+
+    @objc public var contentView: UIView?
+
     // MARK: - Background
 
     /**
@@ -176,6 +184,8 @@ extension BulletinManager {
         viewController.transitioningDelegate = viewController
         viewController.loadBackgroundView()
         viewController.setNeedsStatusBarAppearanceUpdate()
+
+        contentView = viewController.contentView
 
         if #available(iOS 11.0, *) {
             viewController.setNeedsUpdateOfHomeIndicatorAutoHidden()
