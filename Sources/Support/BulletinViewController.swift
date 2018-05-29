@@ -414,12 +414,7 @@ extension BulletinViewController {
             return
         }
 
-        var defaultRadius: NSNumber = 12
-
-        if #available(iOS 11.0, *) {
-            defaultRadius = screenHasRoundedCorners ? 36 : 12
-        }
-
+        let defaultRadius: NSNumber = 10
         let cornerRadius = CGFloat((manager?.cardCornerRadius ?? defaultRadius).doubleValue)
         
         if let customStackViewPadding = manager?.cardContentInsets {
