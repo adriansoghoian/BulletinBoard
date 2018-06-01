@@ -409,40 +409,45 @@ extension BulletinViewController {
 
     fileprivate func updateCornerRadius() {
 
-        if manager?.cardPadding.rawValue == 0 {
+        if manager?.cardPadding.rawValue == 0, manager?.cardMaskedCorners == nil {
             contentView.layer.cornerRadius = 0
             return
         }
 
         let defaultRadius: NSNumber = 10
         let cornerRadius = CGFloat((manager?.cardCornerRadius ?? defaultRadius).doubleValue)
-        
+
         if let customStackViewPadding = manager?.cardContentInsets {
             let top = customStackViewPadding.top
             let left = customStackViewPadding.left
             let right = customStackViewPadding.right
             let bottom = customStackViewPadding.bottom
-            
+
             if top.isZero, left.isZero, right.isZero {
                 let topView = contentStackView.arrangedSubviews.first
                 if #available(iOS 11.0, *) {
-                    topView?.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMinYCorner]
+                    topView?.layer.maskedCorners = manager?.cardMaskedCorners ?? [.layerMinXMinYCorner, .layerMinXMinYCorner]
                     topView?.layer.cornerRadius = cornerRadius
                 }
             }
-            
+
             if bottom.isZero, left.isZero, right.isZero  {
                 let lastView = contentStackView.arrangedSubviews.last
                 if #available(iOS 11.0, *) {
-                    lastView?.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+                    lastView?.layer.maskedCorners = manager?.cardMaskedCorners ?? [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
                     lastView?.layer.cornerRadius = cornerRadius
                 }
             }
         }
         contentView.layer.cornerRadius = cornerRadius
 
-    }
+        if let maskCorners = manager?.cardMaskedCorners {
+            if #available(iOS 11.0, *) {
+                contentView.layer.maskedCorners = maskCorners
+            }
+        }
 
+    }
 }
 
 // MARK: - Background

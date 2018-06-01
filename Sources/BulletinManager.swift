@@ -117,6 +117,14 @@ import UIKit
     @objc public var cardCornerRadius: NSNumber?
 
     /**
+     * The corners of the bulletin card to apply mask to. If you dont set a value for cardMaskedCorners then all corners will have the same radius. Exempt corners from rounding by exluding them from this property
+     *
+     * Set this value before calling `prepare`. Changing it after will have no effect.
+     */
+
+    public var cardMaskedCorners: CACornerMask?
+
+    /**
      * Whether swipe to dismiss should be allowed. Defaults to true.
      *
      * If you set this value to true, the user will be able to drag the card, and swipe down to
