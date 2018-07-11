@@ -205,7 +205,7 @@ extension BulletinViewController {
         }
 
         contentView.backgroundColor = manager.backgroundColor
-        contentView.cornerRadius = CGFloat((manager.cardCornerRadius ?? 12).doubleValue)
+        updateCornerRadius()
         closeButton.updateColors(isDarkBackground: manager.backgroundColor.needsDarkText == false)
 
         let cardPadding = manager.edgeSpacing.rawValue
@@ -431,27 +431,6 @@ extension BulletinViewController {
         let defaultRadius: NSNumber = 10
         let cornerRadius = CGFloat((manager?.cardCornerRadius ?? defaultRadius).doubleValue)
 
-        if let customStackViewPadding = manager?.cardContentInsets {
-            let top = customStackViewPadding.top
-            let left = customStackViewPadding.left
-            let right = customStackViewPadding.right
-            let bottom = customStackViewPadding.bottom
-            if top.isZero, left.isZero, right.isZero {
-                let topView = contentStackView.arrangedSubviews.first
-                if #available(iOS 11.0, *) {
-                    topView?.layer.maskedCorners = manager?.cardMaskedCorners ?? [.layerMinXMinYCorner, .layerMinXMinYCorner]
-                    topView?.layer.cornerRadius = cornerRadius
-                }
-            }
-
-            if bottom.isZero, left.isZero, right.isZero  {
-                let lastView = contentStackView.arrangedSubviews.last
-                if #available(iOS 11.0, *) {
-                    lastView?.layer.maskedCorners = manager?.cardMaskedCorners ?? [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-                    lastView?.layer.cornerRadius = cornerRadius
-                }
-            }
-        }
         contentView.layer.cornerRadius = cornerRadius
 
         if let maskCorners = manager?.cardMaskedCorners {
