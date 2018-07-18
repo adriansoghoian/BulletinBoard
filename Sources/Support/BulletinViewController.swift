@@ -128,6 +128,7 @@ extension BulletinViewController {
 
         // Close button
 
+        let closeButton: UIControl = self.manager?.customCloseButton ?? self.closeButton
         contentView.addSubview(closeButton)
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
