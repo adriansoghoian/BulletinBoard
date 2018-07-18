@@ -135,6 +135,12 @@ import UIKit
      */
 
     @objc public var allowsSwipeInteraction: Bool = true
+    
+    /**
+     * Optionally provide a custom button for the close button
+     */
+    
+    public var customCloseButton: UIButton?
 
 
     // MARK: - Private Properties
